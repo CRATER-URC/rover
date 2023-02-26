@@ -1,3 +1,14 @@
+# PlatformIO
+**/.pioenvs
+**/.pio
+**/.piolibdeps
+**/.gitignore
+**/test
+**/.travis.yml
+*.vscode/
+*.vs/
+*release/
+
 devel/
 logs/
 build/
