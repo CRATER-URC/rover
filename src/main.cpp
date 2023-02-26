@@ -100,7 +100,7 @@ int currentVersion = 1;
 uint8_t desiredAntennaAngle = 0;
 unsigned long electronResetCounter = 0;
 bool resetTimeFlag = true;
-byte roverAddress = 0;
+byte roverAddress = 1;
 bool cameraFlag = false;
 bool killFlag = false;
 bool switchFlag = false;
@@ -177,6 +177,7 @@ void setup()
   pinMode(RFM95_RST, OUTPUT);
   pinMode(heaterPin, OUTPUT);
   pinMode(cameraPin, OUTPUT);
+  pinMode(killPin, OUTPUT);
   pinMode(switchPin, OUTPUT);
   pinMode(choicePin, INPUT);
   pinMode(programmingPin, INPUT);
@@ -190,8 +191,8 @@ void setup()
 
   // Initialize Message Struct
   messageReadings.resetTime = 0;
-  messageReadings.signalAverageMSB = 0;
-  messageReadings.signalAverageLSB = 0;
+  messageReadings.signalAverageMSB = (signalAverage & 0xFF00) >> 8;
+  messageReadings.signalAverageLSB = (signalAverage & 0x00FF);
   messageReadings.roverMode = 1;
   messageReadings.resetConfirmed = false;
   messageIn.resetFlag = false;
@@ -246,6 +247,7 @@ void setup()
 
   digitalWrite(cameraPin, HIGH);
   //delay(5000); // 5 second delay
+  digitalWrite(killPin, HIGH);
   digitalWrite(switchPin, HIGH);
   //delay(2500);
   digitalWrite(auxPin, HIGH);
